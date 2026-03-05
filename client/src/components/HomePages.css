@@ -1,0 +1,54 @@
+
+section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+
+article {
+    border-radius: 15px;
+    max-width: 100%;
+    border: 2.5px solid black
+    
+}
+.img {
+    position: relative;
+}
+.title {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 35px;
+    color: white;
+
+}
+
+.img > img{
+    border-radius: 15px;
+    z-index: 0;
+    max-width: 100%;
+    min-height: 160px;
+    margin: 0;
+}
+
+.info-dad{padding: 10px;}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-select-seats {
+    text-align: center;
+}
+
+.button-select-seats > button {
+    background-color: yellow;
+    min-width: 90%;
+    padding: 10px;
+    border-radius: 10px;
+}
+.button-select-seats > button:hover {
+    background-color: rgb(193, 193, 26);
+}
