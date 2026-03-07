@@ -1,6 +1,7 @@
 import './HomePages.css'
 import { useEffect } from 'react'
 import { useMovies } from '../store/MoviesStore.js'
+import Navbar from './Navbar.jsx'
 
 function HomePages() {
     const movieZu = useMovies(state => state.movie)
@@ -22,19 +23,11 @@ function HomePages() {
     
         return (
         <>
-            <nav>
-                <h1>Movie Night</h1>
-                <p>Search a movie and pick your seats</p>
-                <p>showing { filteredMovies.length } results</p>
-            </nav>
-            <div>
-                <input type="text" 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder='Search by title or genre'
-                 />
-                
-            </div>
+          <Navbar
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          resultsCount={filteredMovies.length}
+          />
 
             <section>
 
