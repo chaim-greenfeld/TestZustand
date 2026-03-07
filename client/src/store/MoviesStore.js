@@ -17,6 +17,7 @@ import { create } from "zustand"
 
         } catch (err) {
             console.log(err)
+            set({isLoading:false})
         }
     },
 

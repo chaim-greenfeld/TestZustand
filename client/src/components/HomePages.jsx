@@ -1,35 +1,44 @@
 import './HomePages.css'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useMovies } from '../store/MoviesStore.js'
 
 function HomePages() {
+    const movieZu = useMovies(state => state.movie)
+    const setMoviesZu = useMovies(state => state.setMoviesZu)
+    const searchQuery = useMovies(state => state.searchQuery)
+    const setSearchQuery = useMovies(state => state.setSearchQuery)
+    
+    
+    
     useEffect(() => {
         setMoviesZu()
-    },[])
-    const setMoviesZu = useMovies(state => state.setMoviesZu)
-    const movieZu = useMovies(state => state.movie)
-    console.log(movieZu)
-    const [filterMoviesByInput, setFilterMoviesByInput] = useState(movieZu)
-    console.log(filterMoviesByInput)
+    },[setMoviesZu])
 
-    const addChange = (e) => {
-        setFilterMoviesByInput(movieZu.filter(movie => movie.Title.includes(e.target.value) || movie.Genre.includes(e.target.value)))
-    }
-    const vewDisplay = filterMoviesByInput[0]? filterMoviesByInput: movieZu
-
+    const filteredMovies = movieZu.filter(movie => 
+        movie.Title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        movie.Genre.toLowerCase().includes(searchQuery.toLowerCase())  
+    )
     
     
-        return (<>
-         <nav>
-      <h1>Movie Night</h1>
-      <p>Search a movie and pick your seats</p>
-      <p>showing {filterMoviesByInput[0]? filterMoviesByInput.length: 7} results</p>
-    </nav>
-            <div><input type="text" onChange={addChange} /></div>
+        return (
+        <>
+            <nav>
+                <h1>Movie Night</h1>
+                <p>Search a movie and pick your seats</p>
+                <p>showing { filteredMovies.length } results</p>
+            </nav>
+            <div>
+                <input type="text" 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder='Search by title or genre'
+                 />
+                
+            </div>
+
             <section>
 
-        {vewDisplay.map(item => {
-            return (
+        {filteredMovies.map(item => (
                 
                 <article key={item.imdbID}>
                 <div className='img'>
@@ -48,8 +57,7 @@ function HomePages() {
                 </div>
 
                 </article>
-            )
-        })}
+        ))}
       
     </section>
         </>
